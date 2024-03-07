@@ -1,0 +1,13 @@
+:root {
+    --default-gray: #222222;
+    --default-moistGrey: #393e4086;
+    --default-lightGray: #303030;
+    --default-white: #dadada90;
+    --default-primary: #d7b716;
+    --default-darkGray: #0f0f0f;
+
+    --strong-white: #eeeeeef0;
+    --strong-gray: #eeeeee64;
+
+    --blue: rgb(0, 110, 255);
+}

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/watch.css" />
+    <link rel="stylesheet" href="../css/scrollbar.css" />
+    <script src="../js/redirects.js" defer></script>
+    <script id="dsq-count-scr" src="//prate.disqus.com/count.js" async></script>
+    <title>πrate | Watch <%= content.title %></title>
+  </head>
+  <style>
+    body {
+      background: url("https://image.tmdb.org/t/p/original<%= content.backdrop_path %>")
+        center/cover fixed;
+    }
+  </style>
+  <body>
+    <nav>
+      <section class="breadcrumbs">
+        <span><a href="#">πrate</a></span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-chevron-compact-right"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"
+          />
+        </svg>
+        <span><a href="#">Watch</a></span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          fill="currentColor"
+          class="bi bi-chevron-compact-right"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"
+          />
+        </svg>
+        <span><a href="/watch/<%= content.title.toLowerCase().replace(/ /g, "-")%>-<%= init.id.imdb %>"><%= content.title %></a></span>
+      </section>
+      <button class="socials">
+        <a href="#">
+          Join our discord
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-discord"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"
+            />
+          </svg>
+        </a>
+      </button>
+      <div class="user">
+        <span id="username">@deleted-user</span>
+        <div class="pfp">
+          <img src="https://picsum.photos/200" alt="Default Profile Picture" />
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="videosrc">
+        <iframe
+          src="https://blackvid.space/embed?tmdb=<%= init.id.tmdb %>"
+          sandbox="allow-scripts allow-same-origin"
+          allowfullscreen="true"
+          frameborder="0"
+          scrolling="no"
+          id="vidsrc"
+        ></iframe>
+      </div>
+      <div class="content-info">
+        <div>
+          <span class="title"><%= content.title %></span>
+          <section class="rating">
+            <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+            </svg> <%= new String(content.vote_average).slice(0,3) %></span><span>HD</span
+            ><span><%= content.runtime %> min</span>
+          </section>
+          <p><%= content.overview %></p>
+          <table>
+            <tr>
+              <td>Type: </td>
+              <td>Movie</td>
+            </tr>
+            <tr>
+              <td>Country:</td>
+              <td>
+                <% for (let i = 0; i < content.production_countries.length; i++) { %>
+                  <%= content.production_countries[i].name %>
+                  <% if (i < content.production_countries.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>            
+            <tr>
+              <td>Genres: </td>
+              <td>
+                <% for (let i = 0; i < content.genres.length; i++) { %>
+                  <%= content.genres[i].name %>
+                  <% if (i < content.genres.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Production: </td>
+              <td>
+                <% for (let i = 0; i < content.production_companies.length; i++) { %>
+                  <%= content.production_companies[i].name %> 
+                  <% if (i < content.production_companies.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Release date: </td>
+              <td><%= new Date(content.release_date).toLocaleDateString('en-US',{ month: 'short', day: '2-digit', year: 'numeric' }) %></td>
+            </tr>
+            <tr>
+              <td>Languages: </td>
+              <td>
+                <% for (let i = 0; i < content.spoken_languages.length; i++) { %>
+                  <%= content.spoken_languages[i].name %>
+                  <% if (i < content.spoken_languages.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <img
+          src="https://image.tmdb.org/t/p/original<%= content.poster_path %>"
+          alt=""
+        />
+      </div>
+      <div class="content-info-mobile">
+        <section>
+          <div>
+            <span class="title"><%= content.title %></span>
+            <section class="rating">
+              <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+              </svg> <%= new String(content.vote_average).slice(0,3) %></span><span>HD</span
+              ><span><%= content.runtime %> min</span>
+            </section>
+            <p><%= content.overview %></p>
+          </div>
+          <div>
+            <img
+              src="https://image.tmdb.org/t/p/original<%= content.poster_path %>"
+              alt=""
+            />
+          </div>
+        </section>
+        <section>
+          <table>
+            <tr>
+              <td>Type: </td>
+              <td>Movie</td>
+            </tr>
+            <tr>
+              <td>Country:</td>
+              <td>
+                <% for (let i = 0; i < content.production_countries.length; i++) { %>
+                  <%= content.production_countries[i].name %>
+                  <% if (i < content.production_countries.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>            
+            <tr>
+              <td>Genres: </td>
+              <td>
+                <% for (let i = 0; i < content.genres.length; i++) { %>
+                  <%= content.genres[i].name %>
+                  <% if (i < content.genres.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Production: </td>
+              <td>
+                <% for (let i = 0; i < content.production_companies.length; i++) { %>
+                  <%= content.production_companies[i].name %> 
+                  <% if (i < content.production_companies.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+            <tr>
+              <td>Release date: </td>
+              <td><%= new Date(content.release_date).toLocaleDateString('en-US',{ month: 'short', day: '2-digit', year: 'numeric' }) %></td>
+            </tr>
+            <tr>
+              <td>Languages: </td>
+              <td>
+                <% for (let i = 0; i < content.spoken_languages.length; i++) { %>
+                  <%= content.spoken_languages[i].name %>
+                  <% if (i < content.spoken_languages.length - 1) { %>
+                    <%= ', ' %>
+                  <% } %>
+                <% } %>
+              </td>
+            </tr>
+          </table>
+        </section>
+      </div>
+      <div class="comment-section">
+        <div id="disqus_thread"></div>
+      </div>
+      <footer>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-c-circle" viewBox="0 0 16 16">
+          <path d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.146 4.992c-1.212 0-1.927.92-1.927 2.502v1.06c0 1.571.703 2.462 1.927 2.462.979 0 1.641-.586 1.729-1.418h1.295v.093c-.1 1.448-1.354 2.467-3.03 2.467-2.091 0-3.269-1.336-3.269-3.603V7.482c0-2.261 1.201-3.638 3.27-3.638 1.681 0 2.935 1.054 3.029 2.572v.088H9.875c-.088-.879-.768-1.512-1.729-1.512"/>
+        </svg>
+        2024
+        <a href="/">πrate</a>
+        All Rights Reserved.
+      </footer>
+    </main>
+  </body>
+  <address style="display: none;" id="identifier"><%= init.id.imdb %></address>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+        
+        var disqus_config = function () {
+        this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = document.getElementById('identifier').textContent; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://prate.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+</html>

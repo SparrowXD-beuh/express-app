@@ -1,0 +1,32 @@
+@import url("../css/index.css");
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: var(--strong-white);
+    transition: all 200ms;
+}
+
+svg {
+    fill: var(--default-white);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: var(--default-white);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--default-primary);
+}
+
+body {
+    background-color: var(--default-gray);
+    height: 100vh;
+    display: flex;
+    flex: auto;
+    margin: 0;
+    padding: 0;
+}
