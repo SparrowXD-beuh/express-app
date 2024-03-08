@@ -6,7 +6,8 @@
   "scripts": {
     "test": "node src/test.js",
     "dev": "node src/main.js",
-    "start": "node src/main.js"
+    "start": "node src/main.js",
+    "vercel-build": "echo Starting Deployment"
   },
   "keywords": [],
   "author": "",
