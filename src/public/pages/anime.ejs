@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watch | <%= anime.title %></title>
+    <style>
+        :root {
+            --text-gray: #858585;
+            --text-darkgray: hsla(289, 12%, 17%, 0.79);
+            --text-white: hsl(120, 15%, 76%);
+            --text-black: hsl(339, 70%, 6%);
+            --background-yellow: hsl(92, 78%, 29%);
+            --background-primary: #1a1a1a;
+            --background-secondary: #333333;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            background-color: var(--background-primary);
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--background-primary);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--background-secondary);
+        }
+
+        main {
+            display: flex;
+            margin: 1rem 1rem;
+            flex-direction: column;
+            gap: 0.24rem;
+            width: 100%;
+            max-width: 80%;
+        }
+
+        iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 0.24rem;
+        }
+
+        .episodes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1.05rem;
+        }
+
+        .episodes a {
+            background-color: var(--background-secondary);
+            color: var(--text-white);
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .episodes a:visited {
+            background-color: var(--text-darkgray);
+        }
+
+        .episodes a span {
+            padding-left: 7px;
+            border-left: solid 2px var(--text-gray);
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+        @media only screen and (max-width: 600px) {
+            main {
+                width: 90%;
+                margin: 1rem 0.24rem;
+                max-width: 100%;
+            }
+
+            .episodes {
+                gap: 0.75rem;
+                grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            }
+
+            .episodes a {
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <iframe src="<%= source %>" frameborder="0" scrolling="no" allowfullscreen></iframe>
+        <div class="content">
+            <h2></h2>
+        </div>
+        <div class="episodes">
+            <% for (let i = 1; i <= maxEpisodes; i++) { %>
+                <a href="http://localhost:3000/anime/<%= anime.title %>?id=<%= anime.mal_id %>&ep=<%= i %>&dub=true" <% if (i == episode) { %>style="background-color: var(--background-yellow); color: var(--text-black);"<% } %> >EP <%= i %><span>DUB</span></a>
+            <% } %>
+        </div>
+    </main>
+</body>
+</html>
