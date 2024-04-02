@@ -77,7 +77,7 @@ app.get("/anime/:title", async (req, res) => {
         return anime.data.data;
       });
     const searchResults = await axios
-      .get(`http://localhost:8888/search?keyword=${anime.title_english}`)
+      .get(`${process.env.SCRAPER || "http://localhost:8888"}/search?keyword=${anime.title_english}`)
       .then((res) => {
         return res.data.body;
       });
@@ -94,7 +94,7 @@ app.get("/anime/:title", async (req, res) => {
         return res.data.body;
       });
     if (anime.airing == false) {
-      res.render("anime.ejs", { source: `http://localhost:8888/stream?videoid=${videoid}&player=default`, maxEpisodes: anime.episodes, anime, episode: req.query.ep });
+      res.render("anime.ejs", { source: `${process.env.SCRAPER || "http://localhost:8888"}/stream?videoid=${videoid}&player=default`, maxEpisodes: anime.episodes, anime, episode: req.query.ep });
     } else {
       const maxEpisodes = await axios
         .get(
@@ -105,7 +105,7 @@ app.get("/anime/:title", async (req, res) => {
         .then((res) => {
           return res.data.body;
         });
-      res.render("anime.ejs", { source: `http://localhost:8888/stream?videoid=${videoid}&player=default`, maxEpisodes , anime, episode: req.query.ep });
+      res.render("anime.ejs", { source: `${process.env.SCRAPER || "http://localhost:8888"}/stream?videoid=${videoid}&player=default`, maxEpisodes , anime, episode: req.query.ep });
     }
   } catch (error) {
     console.error("Error fetching anime details:", error);
