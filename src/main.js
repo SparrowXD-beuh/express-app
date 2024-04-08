@@ -95,9 +95,9 @@ app.get("/anime/:title", async (req, res) => {
         _id: `${mal_id}-${episode}-${dub}`,
         html: page
       };
-      // if (doc.html.length != 0) {
-      //   await insert(doc, 'pages');
-      // }
+      if (doc.html.length != 0) {
+        await insert(doc, 'pages');
+      }
       res.send(page);
   } catch (error) {
     console.error("Error fetching anime details:", error);
