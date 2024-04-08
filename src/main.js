@@ -82,15 +82,19 @@ app.get("/anime/:title", async (req, res) => {
     if (exists) return res.send(exists.html);
     const anime = (await axios.get(`https://api.jikan.moe/v4/anime/${mal_id}`)).data.data;
     // console.log(anime);
-    const searchResult = ((await axios.get(`${scraper}/search?keyword=${anime.title}`)).data.body).find(element => anime.title.toLowerCase() === element.name.toLowerCase());
-    const videoid = (await axios.get(`${scraper}/videoid?path=${searchResult.href}&ep=${episode}&dub=${dub}`)).data.body;
+    let searchResult;
+    searchResult = ((await axios.get(`${scraper}/search?keyword=${anime.title}`)).data.body).find(element => anime.title.toLowerCase() === element.name.toLowerCase());
+    if (!searchResult) {
+      searchResult = ((await axios.get(`${scraper}/search?keyword=${anime.title_english}`)).data.body).find(element => anime.title_english.toLowerCase() === element.name.toLowerCase());
+    }
+    // console.log(searchResult);
     let maxEpisodes;
     if (!anime.airing) {
       maxEpisodes = anime.episodes;
     } else {
       maxEpisodes = await axios.get(`${scraper}/episodes?path=${searchResult.href}&dub=${dub}`).data.body;
     }
-      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'anime.ejs'), { source: `${scraper}/stream?videoid=${videoid}&player=default`, maxEpisodes, anime, episode, dub });
+      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'anime.ejs'), { source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
       const doc = {
         _id: `${mal_id}-${episode}-${dub}`,
         html: page
