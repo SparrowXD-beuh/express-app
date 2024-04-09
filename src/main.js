@@ -94,7 +94,7 @@ app.get("/anime/:title", async (req, res) => {
     } else {
       maxEpisodes = await axios.get(`${scraper}/episodes?path=${searchResult.href}&dub=${dub}`).data.body;
     }
-      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'anime.ejs'), { source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
+      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'anime.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
       // const doc = {
       //   _id: `${mal_id}-${episode}-${dub}`,
       //   html: page
