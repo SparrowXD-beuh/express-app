@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script id="dsq-count-scr" src="//prate.disqus.com/count.js" async></script>
     <title>watch | <%= anime.title %></title>
     <style>
         :root {
@@ -23,6 +24,8 @@
             padding: 0;
             margin: 0;
             background-color: var(--background-primary);
+            color: var(--text-white);
+            font-family: Arial, Helvetica, sans-serif;
         }
 
         body::-webkit-scrollbar {
@@ -43,7 +46,18 @@
             flex-direction: column;
             gap: 0.24rem;
             width: 100%;
-            max-width: 80%;
+            max-width: 70%;
+        }
+
+        h2 {
+            display: flex;
+            flex-direction: column;
+            margin: 15px 0;
+            gap: 5px;
+        }
+
+        h2 span {
+            font-size: 15px;
         }
 
         iframe {
@@ -84,7 +98,15 @@
             margin-left: auto;
         }
 
+        .comment-section {
+            margin-top: 20px;
+        }
+
         @media only screen and (max-width: 600px) {
+            body {
+                font-size: 0.75rem;
+            }
+
             main {
                 width: 90%;
                 margin: 1rem 0.24rem;
@@ -97,13 +119,26 @@
             }
 
             .episodes a {
-                padding: 5px;
+                padding: 10px;
             }
+        }
+
+        #disqus_thread {
+            width: 100%;
+        }
+
+        #disqus_thread p {
+            color: var(--blue);
+        }
+
+        #disqus_thread a {
+            color: var(--blue);
         }
     </style>
 </head>
 <body>
     <main>
+        <h2><%= dub == "true" ? anime.title_english : anime.title %><span>Episode <%= episode %> <%= dub == "true" ? "(English Dubbed)" : "(English Subbed)" %></span></h2>
         <iframe src="<%= source %>" frameborder="0" scrolling="no" allowfullscreen></iframe>
         <div class="content">
             <h2></h2>
@@ -113,6 +148,27 @@
                 <a href="<%= baseUrl %>/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() %>?id=<%= anime.mal_id %>&ep=<%= i %>&dub=<%= dub %>" <% if (i == episode) { %>style="background-color: var(--background-yellow); color: var(--text-black);"<% } %> >EP <%= i %><span><%= dub == "false" ? "SUB" : "DUB" %></span></a>
             <% } %>
         </div>
+        <div class="comment-section">
+            <div id="disqus_thread"></div>
+        </div>
     </main>
+    <address style="display: none;" id="identifier"><%= anime.mal_id %>-<%= episode %>-<%= dub %></address>
+    <script>
+        /**
+        *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+        *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+        
+        var disqus_config = function () {
+        this.page.url = window.location.href;  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = document.getElementById('identifier').textContent; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://prate.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
 </body>
 </html>
