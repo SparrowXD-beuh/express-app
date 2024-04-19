@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Anime | <%= anime.title %></title>
     <style>
         :root {
             --text-gray: #858585;
@@ -67,6 +67,12 @@
             display: flex;
             flex-direction: column;
             width: 100%;
+        }
+
+        .stats-desktop {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .stats .title_japanese {
@@ -166,6 +172,10 @@
             outline: none;
             padding: 0 15px;
         }
+
+        .stats-mobile {
+            display: none;
+        }
         
         @media only screen and (max-width: 600px) {
             body {
@@ -180,7 +190,6 @@
 
             .overview {
                 gap: 1.05rem;
-                flex-direction: column;
             }
 
             .scorecard {
@@ -190,7 +199,7 @@
             .scorebox {
                 display: flex;
                 flex-direction: column;
-                font-size: 0.64rem;
+                font-size: 0.80rem;
                 border: 1px solid #ffffffa2;
                 width: auto;
             }
@@ -213,6 +222,7 @@
                 font-size: 0.4rem;
                 text-align: center;
                 margin-bottom: 2px;
+                padding: 0 5px;
             }
 
             .inline-score {
@@ -223,6 +233,14 @@
             .stats {
                 display: flex;
                 flex-direction: column;
+            }
+
+            .stats-desktop {
+                display: none;
+            }
+
+            .stats-mobile {
+                display: block;
             }
 
             .title_english {
@@ -303,46 +321,88 @@
             <div class="stats">
                 <h3 class="title_japanese"><%= anime.title_japanese %></h3>
                 <span class="title_english"><%= dub == "true" ? anime.title_english : anime.title %></span>
-                <div class="scorecard">
-                    <div class="scorebox">
-                        <span>score</span>
-                        <div><%= anime.score %></div>
-                        <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
-                    </div>
-                    <div class="inline-score">
-                        Ranked #<%= anime.rank %>
-                    </div>
-                    <div class="inline-score">
-                        Popularity #<%= anime.popularity %>
-                    </div>
-                    <div class="inline-score">
-                        Members <%= anime.members.toLocaleString() %>
-                    </div>
-                </div>
-                <div class="moreinfo">
-                    <div class="info">
-                        <div class="types">
-                            <a href=""><%= anime.type %></a>
-                            <a href=""><%= anime.studios[0].name %></a>
-                            <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                <div class="stats-desktop">
+                    <div class="scorecard">
+                        <div class="scorebox">
+                            <span>score</span>
+                            <div><%= anime.score %></div>
+                            <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
                         </div>
-                        <div class="genres">
-                            <% anime.genres.forEach(genre => { %>
-                                <a href=""><%= genre.name %></a>
-                            <% }); %>
+                        <div class="inline-score">
+                            Ranked #<%= anime.rank %>
+                        </div>
+                        <div class="inline-score">
+                            Popularity #<%= anime.popularity %>
+                        </div>
+                        <div class="inline-score">
+                            Members <%= anime.members.toLocaleString() %>
                         </div>
                     </div>
-                    <a href="/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() + "?id=" + anime.mal_id + "&dub=" + (dub == "true" ? "false" : "true") %>" style="margin-left: auto;" class="switch-dub">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
-                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
-                          </svg>
-                        <%= dub == "true" ? "SUB" : "DUB" %>
-                    </a>
-                    <button id="watch">Watch (<%= dub == "true" ? "DUB" : "SUB" %>)</button>
+                    <div class="moreinfo">
+                        <div class="info">
+                            <div class="types">
+                                <a href=""><%= anime.type %></a>
+                                <a href=""><%= anime.studios[0].name %></a>
+                                <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                            </div>
+                            <div class="genres">
+                                <% anime.genres.forEach(genre => { %>
+                                    <a href=""><%= genre.name %></a>
+                                <% }); %>
+                            </div>
+                        </div>
+                        <a href="/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() + "?id=" + anime.mal_id + "&dub=" + (dub == "true" ? "false" : "true") %>" style="margin-left: auto;" class="switch-dub">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                                <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                              </svg>
+                            <%= dub == "true" ? "SUB" : "DUB" %>
+                        </a>
+                        <button id="watch">Watch (<%= dub == "true" ? "DUB" : "SUB" %>)</button>
+                    </div>
                 </div>
             </div>
         </section>
+        <div class="stats-mobile">
+            <div class="scorecard">
+                <div class="scorebox">
+                    <span>score</span>
+                    <div><%= anime.score %></div>
+                    <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
+                </div>
+                <div class="inline-score">
+                    Ranked #<%= anime.rank %>
+                </div>
+                <div class="inline-score">
+                    Popularity #<%= anime.popularity %>
+                </div>
+                <div class="inline-score">
+                    Members <%= anime.members.toLocaleString() %>
+                </div>
+            </div>
+            <div class="moreinfo">
+                <div class="info">
+                    <div class="types">
+                        <a href=""><%= anime.type %></a>
+                        <a href=""><%= anime.studios[0].name %></a>
+                        <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                    </div>
+                    <div class="genres">
+                        <% anime.genres.forEach(genre => { %>
+                            <a href=""><%= genre.name %></a>
+                        <% }); %>
+                    </div>
+                </div>
+                <a href="/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() + "?id=" + anime.mal_id + "&dub=" + (dub == "true" ? "false" : "true") %>" style="margin-left: auto;" class="switch-dub">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                        <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                      </svg>
+                    <%= dub == "true" ? "SUB" : "DUB" %>
+                </a>
+                <button id="watch">Watch (<%= dub == "true" ? "DUB" : "SUB" %>)</button>
+            </div>
+        </div>
         <p><h3>Synopsis:</h3><%= anime.synopsis.replace("[Written by MAL Rewrite]", "") %></p>
         <div class="episodes">
             <% for (let i = 1; i <= maxEpisodes; i++) { %>
