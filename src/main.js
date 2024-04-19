@@ -73,6 +73,48 @@ app.get("/watch/:title", async (req, res) => {
 });
 
 let scraper;
+app.get("/anime/watch/:title", async (req, res) => {
+  console.time();
+  process.env.PROD ? scraper = process.env.SCRAPER : "http://localhost:8888";
+  try {
+    const { dub, ep: episode, id: mal_id } = req.query;
+    // const exists = await find(`${mal_id}-${episode}-${dub}`, "pages");
+    // if (exists) return res.send(exists.html);
+    const anime = (await axios.get(`https://api.jikan.moe/v4/anime/${mal_id}`)).data.data;
+    // console.log(anime);
+    let searchResult;
+    searchResult = ((await axios.get(`${scraper}/search?keyword=${anime.title}`)).data.body).find(element => anime.title.toLowerCase() === element.name.toLowerCase());
+    if (!searchResult) {
+      searchResult = ((await axios.get(`${scraper}/search?keyword=${anime.title_english}`)).data.body).find(element => anime.title_english.toLowerCase() === element.name.toLowerCase());
+    }
+    // console.log(searchResult);
+    let maxEpisodes;
+    if (!anime.airing) {
+      maxEpisodes = anime.episodes;
+    } else {
+      maxEpisodes = (await axios.get(`${scraper}/episodes?url=${searchResult.href}&dub=${dub}`)).data.body;
+    }
+      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'watchanime.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
+      // const doc = {
+      //   _id: `${mal_id}-${episode}-${dub}`,
+      //   html: page
+      // };
+      // if (doc.html.length != 0) {
+      //   await insert(doc, 'pages');
+      // }
+      res.send(page);
+  } catch (error) {
+    console.error("Error fetching anime details:", error);
+  } finally {
+    console.timeEnd();
+  }
+});
+
+app.listen(process.env.PORT || 3000, async () => {
+  // await connectToDatabase();
+  console.log("Server is running on http://localhost:3000");
+});
+
 app.get("/anime/:title", async (req, res) => {
   console.time();
   process.env.PROD ? scraper = process.env.SCRAPER : "http://localhost:8888";
@@ -94,7 +136,7 @@ app.get("/anime/:title", async (req, res) => {
     } else {
       maxEpisodes = (await axios.get(`${scraper}/episodes?url=${searchResult.href}&dub=${dub}`)).data.body;
     }
-      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'anime.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
+      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'animeinfo.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
       // const doc = {
       //   _id: `${mal_id}-${episode}-${dub}`,
       //   html: page
@@ -108,11 +150,6 @@ app.get("/anime/:title", async (req, res) => {
   } finally {
     console.timeEnd();
   }
-});
-
-app.listen(process.env.PORT || 3000, async () => {
-  // await connectToDatabase();
-  console.log("Server is running on http://localhost:3000");
 });
 
 module.exports = app;

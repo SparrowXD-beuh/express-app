@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        :root {
+            --text-gray: #858585;
+            --text-darkgray: hsla(289, 12%, 17%, 0.79);
+            --text-white: hsl(120, 15%, 76%);
+            --text-black: hsl(339, 70%, 6%);
+            --background-yellow: hsl(92, 78%, 29%);
+            --background-primary: #1a1a1a;
+            --background-secondary: #333333;
+            --text-outline: #b1aaa807;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            padding: 0;
+            margin: 0;
+            background-color: var(--background-primary);
+            color: var(--text-white);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--background-primary);
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: var(--background-secondary);
+        }
+
+        main {
+            display: flex;
+            margin: 1rem 1rem;
+            flex-direction: column;
+            gap: 0.24rem;
+            width: 100%;
+            max-width: 70%;
+        }
+
+        .overview {
+            display: flex;
+            gap: 2.4rem;
+        }
+
+        .overview .poster {
+            max-width: 250px;
+            min-width: 70px;
+        }
+
+        .poster img {
+            width: 100%;
+        }
+
+        .stats {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .stats .title_japanese {
+            margin: 0;
+        }
+
+        .title_english {
+            margin-top: 12px;
+            font-size: 2rem;
+            font-weight: 650;
+        }
+
+        .scorecard {
+            display: flex;
+            margin-top: 1rem;
+            gap: 1rem;
+        }
+
+        .scorebox {
+            display: flex;
+            flex-direction: column;
+            font-size: 1.64rem;
+            border: 1px solid #ffffffa2;
+            width: 80px;
+        }
+
+        .scorebox span:first-child {
+            font-size: 0.7rem;
+            background-color: rgb(61, 125, 221);
+            text-align: center;
+            font-weight: 600;
+            color: antiquewhite;
+        }
+
+        .scorebox div {
+            padding: 10px;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .scorebox span:last-child {
+            font-size: 0.64rem;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .inline-score {
+            font-size: 1.25rem;
+            font-weight: 650;
+        }
+
+        .moreinfo {
+            display: flex;
+            margin-top: auto;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .info a {
+            padding: 4px;
+            text-decoration: none;
+            color: var(--text-white);
+            text-shadow: 
+                -2px -2px 2px var(--text-outline),  
+                0px -2px 2px var(--text-outline),
+                2px -2px 2px var(--text-outline),
+                -2px  0px 2px var(--text-outline),
+                2px  0px 2px var(--text-outline),
+                -2px  2px 2px var(--text-outline),
+                0px  2px 2px var(--text-outline),
+                2px  2px 2px var(--text-outline);
+            border-radius: 5px;
+        }
+
+        .switch-dub {
+            padding: 0 15px;
+            font-size: 1.05rem;
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--text-white);
+            background-color: rgb(10, 96, 49);
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #watch {
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 0 10px 10px 0;
+            border: none;
+            outline: none;
+            padding: 0 15px;
+        }
+        
+        @media only screen and (max-width: 600px) {
+            body {
+                font-size: 0.75rem;
+            }
+
+            main {
+                width: 90%;
+                margin: 1rem 0.24rem;
+                max-width: 100%;
+            }
+
+            .overview {
+                gap: 1.05rem;
+                flex-direction: column;
+            }
+
+            .scorecard {
+                gap: 0.5rem;
+            }
+
+            .scorebox {
+                display: flex;
+                flex-direction: column;
+                font-size: 0.64rem;
+                border: 1px solid #ffffffa2;
+                width: auto;
+            }
+
+            .scorebox span:first-child {
+                font-size: 0.5rem;
+                background-color: rgb(61, 125, 221);
+                text-align: center;
+                font-weight: 600;
+                color: antiquewhite;
+            }
+
+            .scorebox div {
+                padding: 4px;
+                font-weight: 700;
+                text-align: center;
+            }
+
+            .scorebox span:last-child {
+                font-size: 0.4rem;
+                text-align: center;
+                margin-bottom: 2px;
+            }
+
+            .inline-score {
+                font-size: 0.65rem;
+                font-weight: 650;
+            }
+
+            .stats {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .title_english {
+                font-size: 1rem;
+            }
+
+            .overview .poster {
+                max-width: 75px;
+            }
+
+            .episodes {
+                gap: 0.75rem;
+                grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            }
+
+            .episodes a {
+                padding: 10px;
+            }
+
+            .info {
+                margin-top: 15px;
+                gap: 4px;
+            }
+
+            .switch-dub {
+                padding: 0 5px;
+                font-size: 0.64rem;
+                border-radius: 10px 0 0 10px;
+            }
+
+            #watch {
+                padding: 0 5px;
+                font-size: 0.64rem;
+                border-radius: 0 10px 10px 0;
+            }
+        }
+
+        .episodes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 1.05rem;
+        }
+
+        .episodes a {
+            background-color: var(--background-secondary);
+            color: var(--text-white);
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .episodes a:visited {
+            background-color: var(--text-darkgray);
+        }
+
+        .episodes a span {
+            padding-left: 7px;
+            border-left: solid 2px var(--text-gray);
+            color: var(--text-gray);
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            margin-left: auto;
+        }
+
+    </style>
+</head>
+<body>
+    <main>
+        <section class="overview">
+            <div class="poster">
+                <img src="<%= anime.images.jpg.large_image_url %>" alt="" draggable="false">
+            </div>
+            <div class="stats">
+                <h3 class="title_japanese"><%= anime.title_japanese %></h3>
+                <span class="title_english"><%= dub == "true" ? anime.title_english : anime.title %></span>
+                <div class="scorecard">
+                    <div class="scorebox">
+                        <span>score</span>
+                        <div><%= anime.score %></div>
+                        <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
+                    </div>
+                    <div class="inline-score">
+                        Ranked #<%= anime.rank %>
+                    </div>
+                    <div class="inline-score">
+                        Popularity #<%= anime.popularity %>
+                    </div>
+                    <div class="inline-score">
+                        Members <%= anime.members.toLocaleString() %>
+                    </div>
+                </div>
+                <div class="moreinfo">
+                    <div class="info">
+                        <div class="types">
+                            <a href=""><%= anime.type %></a>
+                            <a href=""><%= anime.studios[0].name %></a>
+                            <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                        </div>
+                        <div class="genres">
+                            <% anime.genres.forEach(genre => { %>
+                                <a href=""><%= genre.name %></a>
+                            <% }); %>
+                        </div>
+                    </div>
+                    <a href="/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() + "?id=" + anime.mal_id + "&dub=" + (dub == "true" ? "false" : "true") %>" style="margin-left: auto;" class="switch-dub">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                            <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41m-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9"/>
+                            <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5 5 0 0 0 8 3M3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9z"/>
+                          </svg>
+                        <%= dub == "true" ? "SUB" : "DUB" %>
+                    </a>
+                    <button id="watch">Watch (<%= dub == "true" ? "DUB" : "SUB" %>)</button>
+                </div>
+            </div>
+        </section>
+        <p><h3>Synopsis:</h3><%= anime.synopsis.replace("[Written by MAL Rewrite]", "") %></p>
+        <div class="episodes">
+            <% for (let i = 1; i <= maxEpisodes; i++) { %>
+                <a href="<%= baseUrl %>/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() %>?id=<%= anime.mal_id %>&ep=<%= i %>&dub=<%= dub %>" <% if (i == episode) { %>style="background-color: var(--background-yellow); color: var(--text-black);"<% } %> >EP <%= i %><span><%= dub == "false" ? "SUB" : "DUB" %></span></a>
+            <% } %>
+        </div>
+    </main>
+</body>
+<script>
+    document.getElementById("watch").addEventListener("click", function() {
+        window.scrollTo(0, document.body.scrollHeight);
+    });
+</script>
+</html>
