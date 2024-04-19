@@ -325,7 +325,7 @@
                     <div class="scorecard">
                         <div class="scorebox">
                             <span>score</span>
-                            <div><%= anime.score %></div>
+                            <div><%= anime.score.toFixed(2) %></div>
                             <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
                         </div>
                         <div class="inline-score">
@@ -343,7 +343,7 @@
                             <div class="types">
                                 <a href=""><%= anime.type %></a>
                                 <a href=""><%= anime.studios[0].name %></a>
-                                <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                                <a href=""><%= anime.season %> <%= anime.aired.string.split(" to ")[0] %></a>
                             </div>
                             <div class="genres">
                                 <% anime.genres.forEach(genre => { %>
@@ -367,7 +367,7 @@
             <div class="scorecard">
                 <div class="scorebox">
                     <span>score</span>
-                    <div><%= anime.score %></div>
+                    <div><%= anime.score.toFixed(2) %></div>
                     <span>Scored by <%= anime.scored_by.toLocaleString() %> users</span>
                 </div>
                 <div class="inline-score">
@@ -385,7 +385,7 @@
                     <div class="types">
                         <a href=""><%= anime.type %></a>
                         <a href=""><%= anime.studios[0].name %></a>
-                        <a href=""><%= anime.season %> <%= anime.aired.string %></a>
+                        <a href=""><%= anime.season %> <%= anime.aired.string.split(" to ")[0] %></a>
                     </div>
                     <div class="genres">
                         <% anime.genres.forEach(genre => { %>
