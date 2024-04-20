@@ -93,10 +93,10 @@ app.get("/anime/watch/:title", async (req, res) => {
     if (!anime.airing) {
       maxEpisodes = anime.episodes;
     } else {
-      maxEpisodes = (await axios.get(`${scraper}/episodes?url=${searchResult.href}&dub=${dub}`)).data.body;
+      maxEpisodes = (await axios.get(`${scraper}/episodes?path=${searchResult.href}&dub=${dub}`)).data.body;
     }
-      const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'watchanime.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
-      res.send(page);
+    const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'watchanime.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
+    res.send(page);
   } catch (error) {
     console.error("Error fetching anime details:", error);
   } finally {
@@ -119,7 +119,7 @@ app.get("/anime/:title", async (req, res) => {
     if (!anime.airing) {
       maxEpisodes = anime.episodes;
     } else {
-      maxEpisodes = (await axios.get(`${scraper}/episodes?url=${searchResult.href}&dub=${dub}`)).data.body;
+      maxEpisodes = (await axios.get(`${scraper}/episodes?path=${searchResult.href}&dub=${dub}`)).data.body;
     }
     const page = await ejs.renderFile(path.join(__dirname, 'public/pages', 'animeinfo.ejs'), { baseUrl: req.protocol + '://' + req.get('host'), source: `https://player.mangafrenzy.net/streaming/${searchResult.href.replace("/category/", "")}${dub == 'true' ? "-dub" : ""}-episode-${episode}`, maxEpisodes, anime, episode, dub });
     res.send(page);
