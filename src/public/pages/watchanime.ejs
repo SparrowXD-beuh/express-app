@@ -145,7 +145,7 @@
         </div>
         <div class="episodes">
             <% for (let i = 1; i <= maxEpisodes; i++) { %>
-                <a href="<%= baseUrl %>/anime/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() %>?id=<%= anime.mal_id %>&ep=<%= i %>&dub=<%= dub %>" <% if (i == episode) { %>style="background-color: var(--background-yellow); color: var(--text-black);"<% } %> >EP <%= i %><span><%= dub == "false" ? "SUB" : "DUB" %></span></a>
+                <a href="<%= baseUrl %>/anime/watch/<%= anime.title.replace(/ /g, "-").replace(/[^a-zA-Z0-9-]/g, "").toLowerCase() %>?id=<%= anime.mal_id %>&ep=<%= i %>&dub=<%= dub %>" <% if (i == episode) { %>style="background-color: var(--background-yellow); color: var(--text-black);"<% } %> >EP <%= i %><span><%= dub == "false" ? "SUB" : "DUB" %></span></a>
             <% } %>
         </div>
         <div class="comment-section">
